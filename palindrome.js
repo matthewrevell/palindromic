@@ -21,6 +21,7 @@ function checkIfPalindrome(stringToCheck) {
 	stringNoSpaces = stringToCheck.replace(/ /g,'');
 	stringLength = stringNoSpaces.length;
 	console.log(stringLength);
+	// XXX: Strip punctuation
 	
 	if (stringLength > 0) {
 		
