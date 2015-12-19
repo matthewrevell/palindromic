@@ -12,20 +12,20 @@ function checkIfPalindrome(stringToCheck) {
 	console.log(typeof stringToCheck);
 	
 	// Define variables
-	var stringNoSpaces = '';
+	var stringStripped = '';
 	var stringLowered = '';
 	var stringLength = 0;
 	var stringReverse = '';
 	
 	// Strip any whitespace and punctuation from the string
-	stringNoSpaces = stringToCheck.replace(/ /g,'');
-	stringLength = stringNoSpaces.length;
+	stringStripped = stringToCheck.replace(/[\W_]+/g,'');
+	stringLength = stringStripped.length;
 	console.log(stringLength);
 	// XXX: Strip punctuation
 	
 	if (stringLength > 0) {
 		
-		stringLowered = stringNoSpaces.toLowerCase();
+		stringLowered = stringStripped.toLowerCase();
 		console.log(stringLowered);
 		// Check if it's a palindrome
 		stringReverse = stringLowered.split('').reverse().join('');
