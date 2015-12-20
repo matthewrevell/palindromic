@@ -1,4 +1,4 @@
-function checkIfPalindrome(stringToCheck, allowNumbers) {
+function checkIfPalindrome(stringToCheck, retainNumbers) {
 	// Takes two paramaters: 
 	// 1. A string that is to be checked for palindromicity.
 	// 2. A boolean, where true allows numbers in the string and false has them stripped out.
@@ -21,13 +21,12 @@ function checkIfPalindrome(stringToCheck, allowNumbers) {
 	var stringReverse = '';
 	var regexNoNumbers = /[\W_0-9]+/g;
 	var regexAllowNumbers = /[\W_]+/g;
-	var regexString = allowNumbers === true ? regexAllowNumbers : regexNoNumbers; 
+	var regexString = retainNumbers === true ? regexAllowNumbers : regexNoNumbers; 
 	
-	// Strip any whitespace and punctuation from the string
+	// Strip any whitespace and punctuation from the string, optionally numbers as well
 	stringStripped = stringToCheck.replace(regexString,'');
 	stringLength = stringStripped.length;
 	console.log(stringLength);
-	// XXX: Strip punctuation
 	
 	if (stringLength > 0) {
 		

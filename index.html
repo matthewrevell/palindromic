@@ -1,0 +1,23 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Palindromic</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="palindrome.js"></script>
+    </head>
+    <body>
+		<h1>Palindromic</h1>
+        <p id="palindrome">Palindrome!</p>
+        <p id="result"></p>
+		<script>
+            var word = "12A Man, A Plan, A Canal-Panama21!";
+			var status = checkIfPalindrome(word, false);
+            document.getElementById("palindrome").innerHTML = "Your word is: " + word;
+            document.getElementById("result").innerHTML = "Your result is: " + status;
+        </script>
+    </body>
+</html>
