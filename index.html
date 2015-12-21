@@ -8,16 +8,22 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="palindrome.js"></script>
+        <script src="findThreeLongest.js"></script>
     </head>
     <body>
 		<h1>Palindromic</h1>
         <p id="palindrome">Palindrome!</p>
         <p id="result"></p>
+        <p id="lengthTest">Length goes here</p>
 		<script>
             var word = "12A Man, A Plan, A Canal-Panama21!";
 			var status = checkIfPalindrome(word, false);
             document.getElementById("palindrome").innerHTML = "Your word is: " + word;
             document.getElementById("result").innerHTML = "Your result is: " + status;
+        </script>
+        <script>
+            var starter = getStartPoint(10);
+            document.getElementById("lengthTest").innerHTML = starter;
         </script>
     </body>
 </html>
