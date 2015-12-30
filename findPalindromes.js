@@ -49,6 +49,7 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
     var palindromes = [];    
     var palindromeStart = 0;
     var palindromeEnd = 0;
+    var palindromesSorted = [];
     var i;
     
     console.log('in returnTopThreePs');
@@ -67,9 +68,11 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
             palindromes.push(stringToCheck.substring(palindromeStart, palindromeEnd).replace(/,/g,''));
         }        
     }
-    console.log(palindromes.sort(sortByLength));
+    
+    palindromesSorted = palindromes.sort(sortByLength); 
+    console.log(palindromesSorted.slice(0,3));
 
-    return palindromes.sort(sortByLength);
+    return palindromes.slice(0,3);
 }
 
 function prepareString(stringToPrepare) {
