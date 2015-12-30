@@ -1,6 +1,6 @@
-function findPalindromesInString(stringToCheck) {
+function findPalindromesInString(stringToCheck, retainNumbers) {
 
-    var separatedString = prepareString(stringToCheck, false);
+    var separatedString = prepareString(stringToCheck, retainNumbers);
     var stringLength = separatedString.length;
     var positionArray = Array(stringLength).fill(0);
     var positionArrayAsString = '';
