@@ -8,28 +8,27 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="palindrome.js"></script>
-        <!--<script src="findThreeLongest.js"></script>-->
         <script src="findPalindromes.js"></script>
     </head>
     <body>
 		<h1>Palindromic</h1>
-        <!--<p id="palindrome">Palindrome!</p>
-        <p id="result"></p>-->
-        <p id="lengthTest">Length goes here</p>
-        <p id="chars">Chars</p>
-		<!--<script>
-            var word = "12A Man, A Plan, A Canal-Panama21!";
-			var status = checkIfPalindrome(word, false);
-            document.getElementById("palindrome").innerHTML = "Your word is: " + word;
-            document.getElementById("result").innerHTML = "Your result is: " + status;
-        </script>-->
+        <pre>
+            <p><span id="string">string</span><br />
+            <span id="positionArray">positionArray</span></p>
+            <p id="palindromes">Palindromes!</p>
+        </pre>
         <script>
             //var starter = getMidPoint(10);
             //document.getElementById("lengthTest").innerHTML = starter;
-            //document.getElementById("chars").innerHTML = findThreeLongestPalindromes("beeeb");
+            //document.getElementById("positionArray").innerHTML = findThreeLongestPalindromes("beeeb");
         </script>
         <script>
-           document.getElementById("chars").innerHTML = findPalindromesInString("abbaNUTbeeebSOPhuuhV");
+           var string = 'abbaxytbeeebit';
+           var prepString = prepareString(string);
+           var posArray = findPalindromesInString(string);
+           document.getElementById("string").innerHTML = prepString;
+           document.getElementById("positionArray").innerHTML = posArray;
+           document.getElementById("palindromes").innerHTML = returnTopThreePalindromes(prepString, posArray);
            
            
         </script>

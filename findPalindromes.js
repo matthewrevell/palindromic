@@ -1,12 +1,75 @@
 function findPalindromesInString(stringToCheck) {
     
-    var stringLength = stringToCheck.length;
-    var midPoint = getMidPoint(stringLength);
+    //var stringLength = stringToCheck.length;
     var separatedString = prepareString(stringToCheck);
+    var stringLength = separatedString.length;
+    var positionArray = Array(stringLength).fill(0);
+    var positionArrayAsString = '';
+    var offset;
+    
+    //var centre = stringLength / 2;
+    var current = 1;
+    var i;
+    
     
     console.log('string: ' + stringToCheck);
     console.log('stringLength: ' + stringLength);
-    console.log('midPoint: ' + midPoint);       
+    //console.log('midPoint: ' + midPoint);    
+    console.log('separatedString: ' + separatedString);
+    
+    for (i = 1; i < stringLength - 1; i++) {
+        console.log('##################');
+        console.log('Working on new character');
+        console.log('##################');        
+        console.log('i: ' + i);
+        console.log('char: ' + separatedString.charAt(i));
+        for (offset = 1; i + offset < stringLength; offset++) {
+            console.log('offset: ' + offset);    
+            console.log('left: ' + separatedString.charAt(i-offset));
+            console.log('right: ' + separatedString.charAt(i+offset));
+            if (separatedString.charAt(i-offset) === separatedString.charAt(i+offset)) {
+                positionArray[i] = offset;
+                console.log('positionArray[i]: ' + positionArray);
+                console.log('palindrome thus far: ' + separatedString.substring(i-offset, i+(offset+1)));
+                console.log('A palindrome!');
+            } else {
+                console.log('Not a palindrome');
+                offset = stringLength+1;
+            }
+                  
+        }        
+    }   
+    positionArrayAsString = positionArray.toString();
+    return positionArrayAsString.replace(/,/g,'');       
+}
+
+function returnTopThreePalindromes(stringToCheck, positionsArray) {
+    
+    //var sortedPositions = positionsArray.sort();
+    var palindromes = [];    
+    var palindromeStart = 0;
+    var palindromeEnd = 0;
+    var i;
+    
+    console.log('in returnTopThreePs');
+    
+    for (i = 1; i < stringToCheck.length - 1; i++) {
+        console.log('i: ' + i);
+        if (positionsArray[i] > 1) {
+            console.log('over 1');
+            console.log('positionsArray[' + i + ']: ' + positionsArray[i]);
+            console.log('typeof positionsArray[i]:' + typeof positionsArray[i]);
+            palindromeStart = i - parseInt(positionsArray[i], 10);
+            console.log('palStart: ' + palindromeStart);
+            palindromeEnd = i + parseInt(positionsArray[i], 10);
+            console.log('palEnd: ' + palindromeEnd);
+            console.log(stringToCheck.substring(palindromeStart, palindromeEnd).replace(/,/g,''));
+            palindromes.push(stringToCheck.substring(palindromeStart, palindromeEnd).replace(/,/g,''));
+        }        
+    }
+    console.log(palindromes);
+
+    return palindromes;
 }
 
 function prepareString(stringToPrepare) {
@@ -17,9 +80,14 @@ function prepareString(stringToPrepare) {
  
     var arrayOfChars = stringToPrepare.split('');
     var stringWithCommas = ',' + arrayOfChars.toString() + ',';
-    console.log(stringWithCommas);  
+    //console.log(stringWithCommas);  
     
     return stringWithCommas;   
+}
+    
+function sortNumber(a,b) {
+    // Supplement array.sort with a numeric sort
+    return a - b;
 }
 
 function getMidPoint (stringLength) {
