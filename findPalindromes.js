@@ -67,9 +67,9 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
             palindromes.push(stringToCheck.substring(palindromeStart, palindromeEnd).replace(/,/g,''));
         }        
     }
-    console.log(palindromes);
+    console.log(palindromes.sort(sortByLength));
 
-    return palindromes;
+    return palindromes.sort(sortByLength);
 }
 
 function prepareString(stringToPrepare) {
@@ -85,9 +85,9 @@ function prepareString(stringToPrepare) {
     return stringWithCommas;   
 }
     
-function sortNumber(a,b) {
-    // Supplement array.sort with a numeric sort
-    return a - b;
+function sortByLength(a,b) {
+    // Sort the array by value length
+    return b.length - a.length;
 }
 
 function getMidPoint (stringLength) {
