@@ -1,20 +1,14 @@
 function findPalindromesInString(stringToCheck) {
-    
-    //var stringLength = stringToCheck.length;
-    var separatedString = prepareString(stringToCheck);
+
+    var separatedString = prepareString(stringToCheck, false);
     var stringLength = separatedString.length;
     var positionArray = Array(stringLength).fill(0);
     var positionArrayAsString = '';
     var offset;
-    
-    //var centre = stringLength / 2;
-    var current = 1;
     var i;
     
-    
     console.log('string: ' + stringToCheck);
-    console.log('stringLength: ' + stringLength);
-    //console.log('midPoint: ' + midPoint);    
+    console.log('stringLength: ' + stringLength);    
     console.log('separatedString: ' + separatedString);
     
     for (i = 1; i < stringLength - 1; i++) {
@@ -44,8 +38,7 @@ function findPalindromesInString(stringToCheck) {
 }
 
 function returnTopThreePalindromes(stringToCheck, positionsArray) {
-    
-    //var sortedPositions = positionsArray.sort();
+
     var palindromes = [];    
     var palindromeStart = 0;
     var palindromeEnd = 0;
@@ -75,35 +68,43 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
     return palindromes.slice(0,3);
 }
 
-function prepareString(stringToPrepare) {
-    // Takes a string and returns it with a comma at every even position. 
-    // Achieves this by turning the string into an array of chars and then back
-    // into a string. This splices commas between each character.
-    // We need to manually add a comma to the start and end of the string.
- 
-    var arrayOfChars = stringToPrepare.split('');
-    var stringWithCommas = ',' + arrayOfChars.toString() + ',';
-    //console.log(stringWithCommas);  
-    
-    return stringWithCommas;   
-}
     
 function sortByLength(a,b) {
     // Sort the array by value length
     return b.length - a.length;
 }
 
-function getMidPoint (stringLength) {
-    // This returns the position of the midpoint of a string, based on the string length provided
-    // For an odd length, it'll select the exact midpoint. For an even length it'll round down to
-    // provide the nearest we can get to the midpoint.      
-    var midPoint = 0;
- 
-    if (stringLength % 2 === 1 && stringLength > 2) {
-        midPoint = Math.round(stringLength / 2);
-    } else  if (stringLength % 2 === 0 && stringLength > 2) {
-        midPoint = Math.floor(stringLength / 2);
-    } 
+function prepareString(stringToCheck, retainNumbers) {
+	// Takes two paramaters: 
+	// 1. A string that is to be checked for palindromicity.
+	// 2. A boolean, where true allows numbers in the string and false has them stripped out.
+	// The function checks that the first parameter is a string and is not empty. 
+	// Transposes to lower case. Strips the spaces and punctuation (and numbers, if specified).
+	// Reverses the string and then returns a version of that string that has a comma
+    // at ever even position starting at 0.
+	
+   // Define variables
+	var stringStripped = '';
+	var stringLowered = '';
+	var regexNoNumbers = /[\W_0-9]+/g;
+	var regexAllowNumbers = /[\W_]+/g;
+	var regexString = retainNumbers === true ? regexAllowNumbers : regexNoNumbers;
+    var arrayOfChars = [];
+    var stringWithCommas = '';
     
-    return(midPoint-1); // Return the midpoint minus 1, to allow for zero base of string numbering
+    //First up, check the parameter is a string
+	if (typeof stringToCheck !== 'string') {
+		return('Not a string');
+	} else if (stringToCheck.length < 1) {
+        return('String is empty');
+    }
+    
+    // Strip any whitespace and punctuation from the string, optionally numbers as well
+	stringStripped = stringToCheck.replace(regexString,'');
+    stringLowered = stringStripped.toLowerCase();
+    
+    arrayOfChars = stringLowered.split('');
+    stringWithCommas = ',' + arrayOfChars.toString() + ',';
+    
+    return stringWithCommas;
 }
