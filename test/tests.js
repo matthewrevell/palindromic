@@ -6,3 +6,21 @@ QUnit.test('String outtuoxyabbatbebvtoooooot sent to findPalindromesInString sho
    
    assert.deepEqual(actual, expected);   
 });
+
+QUnit.test('String 1a2b3b4a5 sent to findPalindromesInString with retainNumbers false should return array with abba', function(assert) {
+   var stringToCheck = prepareString('1a2b3b4a5', false);
+   var expected = ['abba'];
+   var positionsArray = findPalindromesInString(stringToCheck, false);
+   var actual = returnTopThreePalindromes(stringToCheck, positionsArray);
+   
+   assert.deepEqual(actual, expected);   
+});
+
+QUnit.test('String 123321aabbbaa4554 sent to findPalindromesInString with retainNumbers true should return array of palindromes including numbers', function(assert) {
+   var stringToCheck = prepareString('123321aabbbaa4554', true);
+   var expected = ['aabbbaa', '123321', '4554'];
+   var positionsArray = findPalindromesInString(stringToCheck, true);
+   var actual = returnTopThreePalindromes(stringToCheck, positionsArray);
+   
+   assert.deepEqual(actual, expected);   
+});

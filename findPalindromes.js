@@ -62,6 +62,8 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
         }        
     }
     
+    console.log(palindromes);
+    
     palindromesSorted = palindromes.sort(sortByLength); 
     console.log(palindromesSorted.slice(0,3));
 
@@ -101,7 +103,9 @@ function prepareString(stringToCheck, retainNumbers) {
     
     // Strip any whitespace and punctuation from the string, optionally numbers as well
 	stringStripped = stringToCheck.replace(regexString,'');
+    console.log('stringStripped: ' + stringStripped);
     stringLowered = stringStripped.toLowerCase();
+    console.log('stringLowered: ' + stringLowered);
     
     arrayOfChars = stringLowered.split('');
     stringWithCommas = ',' + arrayOfChars.toString() + ',';
