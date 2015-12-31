@@ -63,7 +63,7 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
     // Returns: an array of the three longest palindromes, as strings.
         
     var topPalindromes = [];
-    var topPalindromePositions = [0, 0, 0];
+    var thereIsAPalindrome = false;
     var stringLength = stringToCheck.length;
     var palindromePositionsWithOffsets = [];
     var tempPalindromeDetails = {};
@@ -91,19 +91,6 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
     palindromePositionsWithOffsets.sort(compareOffsets);
     
     console.log(JSON.stringify(palindromePositionsWithOffsets));
-
-    /*for (i = 0; i < stringLength; i++) {
-        if (positionsArray[i] > topPalindromePositions[0]) {
-            topPalindromePositions.splice(0, 0, i); 
-            console.log(topPalindromePositions);
-        } else if (positionsArray[i] > topPalindromePositions[1]) {
-            topPalindromePositions.splice(1, 0, i)
-            console.log(topPalindromePositions);
-        } else if (positionsArray[i] > topPalindromePositions[2]) {
-            topPalindromePositions.splice(2, 0, i)
-            console.log(topPalindromePositions);
-        }
-    }*/
     
     // Trim the array of palindrome positions so that we have only three.
     
@@ -122,6 +109,9 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
         centre = palindromePositionsWithOffsets[i].position;
         console.log('centre:' + centre);
         offset = palindromePositionsWithOffsets[i].offset;
+        if (offset > 1) {
+            thereIsAPalindrome = true;
+        }
         start = centre - offset;
         end = centre + offset;
         palindromeWithCommas = stringToCheck.slice(start, end);
@@ -129,7 +119,11 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
         console.log(topPalindromes[i]);
     }
     
-    return topPalindromes;
+    if (thereIsAPalindrome) {
+        return topPalindromes;
+    } else {
+        return 'No palindromes found';    
+    } 
 
 }
 
