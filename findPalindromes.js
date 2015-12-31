@@ -3,7 +3,7 @@ function findPalindromesInString(stringToCheck, retainNumbers) {
     var separatedString = prepareString(stringToCheck, retainNumbers);
     var stringLength = separatedString.length;
     var positionArray = Array(stringLength).fill(0);
-    var positionArrayAsString = '';
+    //var positionArrayAsString = '';
     var offset;
     var i;
     
@@ -33,13 +33,58 @@ function findPalindromesInString(stringToCheck, retainNumbers) {
                   
         }        
     }   
-    positionArrayAsString = positionArray.toString();
-    return positionArrayAsString.replace(/,/g,'');       
+    /*positionArrayAsString = positionArray.toString();
+    console.log('positionArrayAsString: ' + positionArrayAsString);
+    return positionArrayAsString.replace(/,/g,'');*/
+    return positionArray;       
 }
 
 function returnTopThreePalindromes(stringToCheck, positionsArray) {
+    
+    var topPalindromes = [];
+    var topPalindromePositions = [0, 0, 0];
+    var stringLength = stringToCheck.length;
+    var i;
+    var centre = 0;
+    var start = 0;
+    var end = 0;
+    var offset = 0;
 
-    var palindromes = [];    
+    for (i = 0; i < stringLength; i++) {
+        if (positionsArray[i] > topPalindromePositions[0]) {
+            topPalindromePositions.splice(0, 0, i); 
+            console.log(topPalindromePositions);
+        } else if (positionsArray[i] > topPalindromePositions[1]) {
+            topPalindromePositions.splice(1, 0, i)
+            console.log(topPalindromePositions);
+        } else if (positionsArray[i] > topPalindromePositions[2]) {
+            topPalindromePositions.splice(2, 0, i)
+            console.log(topPalindromePositions);
+        }
+    }
+    
+    if (topPalindromePositions.length > 3) {
+        topPalindromePositions.length = 3;
+    }
+
+    console.log(topPalindromePositions);
+    
+    for (i = 0; i <= 2; i++) {
+        centre = topPalindromePositions[i];
+        console.log('centre:' + centre);
+        offset = positionsArray[centre];
+        start = centre - offset;
+        end = centre + offset;
+        topPalindromes[i] = stringToCheck.slice(start, end);
+        console.log(topPalindromes[i]);
+    }
+    
+    return topPalindromes;
+
+    
+    
+
+/*    var palindromes = [];    
     var palindromeStart = 0;
     var palindromeEnd = 0;
     var palindromesSorted = [];
@@ -67,7 +112,7 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
     palindromesSorted = palindromes.sort(sortByLength); 
     console.log(palindromesSorted.slice(0,3));
 
-    return palindromes.slice(0,3);
+    return palindromes.slice(0,3);*/
 }
 
     
