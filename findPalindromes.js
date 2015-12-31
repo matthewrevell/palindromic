@@ -1,15 +1,34 @@
 function findPalindromesInString(stringToCheck, retainNumbers) {
+    
+    // Accepts: a string to be checked for palindromes and a boolean flag.
+    // Returns: an array of numbers. The index of each array corresponds to
+    // an index in the string and the value at that index in the array is the
+    // extent of any array centred at that position.
+    // The boolean flag chooses whether to retain any numbers in the string or
+    // to strip them out.
+    // The function prepares the string: it removes punctuation, spaces and
+    // numbers, if chosen, then transposes it to lower case and places a comma
+    // at each odd index, starting at 0 and finishing at the final index.
+    // It then returns the array giving the size of the offset creating the
+    // palindrome from each of the string's corresponding indexes.
 
     var separatedString = prepareString(stringToCheck, retainNumbers);
     var stringLength = separatedString.length;
     var positionArray = Array(stringLength).fill(0);
-    //var positionArrayAsString = '';
     var offset;
     var i;
     
     console.log('string: ' + stringToCheck);
     console.log('stringLength: ' + stringLength);    
     console.log('separatedString: ' + separatedString);
+    
+    // Loop through the string to find any palindromes.
+    // Start at index 1, as 0 is only a separator.
+    // Compare each character either side. If they are identical, we have a
+    // palindrome and record the length in the corresponding index of the
+    // position array. We then increase the offset by one and compare those
+    // characters. We continue updating the positions array until we hit the
+    // extremities of the string or the characters no long match.
     
     for (i = 1; i < stringLength - 1; i++) {
         console.log('##################');
@@ -33,24 +52,47 @@ function findPalindromesInString(stringToCheck, retainNumbers) {
                   
         }        
     }   
-    /*positionArrayAsString = positionArray.toString();
-    console.log('positionArrayAsString: ' + positionArrayAsString);
-    return positionArrayAsString.replace(/,/g,'');*/
     return positionArray;       
 }
 
 function returnTopThreePalindromes(stringToCheck, positionsArray) {
-    
+    // Accepts: a string containing various palindromes and an array.
+    // Each index in the array corresponds to an index in the string.
+    // The values in the array show the number of characters left and right
+    // of any palindrome centred at that index.
+    // Returns: an array of the three longest palindromes, as strings.
+        
     var topPalindromes = [];
     var topPalindromePositions = [0, 0, 0];
     var stringLength = stringToCheck.length;
+    var palindromePositionsWithOffsets = [];
+    var tempPalindromeDetails = {};
+    var palindromeWithCommas = '';
     var i;
     var centre = 0;
     var start = 0;
     var end = 0;
     var offset = 0;
-
+    
+    // Find the longest three palindromes by looping through the array of
+    // palindrome offsets. If the palindrome is longer than the top three, it
+    // will push that palindrome's centre index into the topPalindromePositions
+    // array, thereby pushing along any existing values that should remain in
+    // the top three.
+    
     for (i = 0; i < stringLength; i++) {
+        console.log(i);
+        tempPalindromeDetails.position = i;
+        tempPalindromeDetails.offset = positionsArray[i];
+        palindromePositionsWithOffsets.push(tempPalindromeDetails);
+        tempPalindromeDetails = {};
+    }
+    
+    palindromePositionsWithOffsets.sort(compareOffsets);
+    
+    console.log(JSON.stringify(palindromePositionsWithOffsets));
+
+    /*for (i = 0; i < stringLength; i++) {
         if (positionsArray[i] > topPalindromePositions[0]) {
             topPalindromePositions.splice(0, 0, i); 
             console.log(topPalindromePositions);
@@ -61,65 +103,40 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
             topPalindromePositions.splice(2, 0, i)
             console.log(topPalindromePositions);
         }
-    }
+    }*/
     
-    if (topPalindromePositions.length > 3) {
-        topPalindromePositions.length = 3;
+    // Trim the array of palindrome positions so that we have only three.
+    
+    if (palindromePositionsWithOffsets.length > 3) {
+        palindromePositionsWithOffsets.length = 3;
     }
 
-    console.log(topPalindromePositions);
+    console.log(JSON.stringify(palindromePositionsWithOffsets));
     
+    // Populate an array with the strings of our top three palindromes by
+    // finding the centre of the palindrome and the offset number of characters
+    // that shows the extent left and right. Once we have that, we slice the
+    // original string to extract our palindrome.
+        
     for (i = 0; i <= 2; i++) {
-        centre = topPalindromePositions[i];
+        centre = palindromePositionsWithOffsets[i].position;
         console.log('centre:' + centre);
-        offset = positionsArray[centre];
+        offset = palindromePositionsWithOffsets[i].offset;
         start = centre - offset;
         end = centre + offset;
-        topPalindromes[i] = stringToCheck.slice(start, end);
+        palindromeWithCommas = stringToCheck.slice(start, end);
+        topPalindromes[i] = palindromeWithCommas.replace(/,/g,'');
         console.log(topPalindromes[i]);
     }
     
     return topPalindromes;
 
-    
-    
-
-/*    var palindromes = [];    
-    var palindromeStart = 0;
-    var palindromeEnd = 0;
-    var palindromesSorted = [];
-    var i;
-    
-    console.log('in returnTopThreePs');
-    
-    for (i = 1; i < stringToCheck.length - 1; i++) {
-        console.log('i: ' + i);
-        if (positionsArray[i] > 1) {
-            console.log('over 1');
-            console.log('positionsArray[' + i + ']: ' + positionsArray[i]);
-            console.log('typeof positionsArray[i]:' + typeof positionsArray[i]);
-            palindromeStart = i - parseInt(positionsArray[i], 10);
-            console.log('palStart: ' + palindromeStart);
-            palindromeEnd = i + parseInt(positionsArray[i], 10);
-            console.log('palEnd: ' + palindromeEnd);
-            console.log(stringToCheck.substring(palindromeStart, palindromeEnd).replace(/,/g,''));
-            palindromes.push(stringToCheck.substring(palindromeStart, palindromeEnd).replace(/,/g,''));
-        }        
-    }
-    
-    console.log(palindromes);
-    
-    palindromesSorted = palindromes.sort(sortByLength); 
-    console.log(palindromesSorted.slice(0,3));
-
-    return palindromes.slice(0,3);*/
 }
 
-    
-function sortByLength(a,b) {
-    // Sort the array by value length
-    return b.length - a.length;
+function compareOffsets(a,b) {
+    return b.offset - a.offset;
 }
+
 
 function prepareString(stringToCheck, retainNumbers) {
 	// Takes two paramaters: 
@@ -139,7 +156,7 @@ function prepareString(stringToCheck, retainNumbers) {
     var arrayOfChars = [];
     var stringWithCommas = '';
     
-    //First up, check the parameter is a string
+    // First up, check the parameter is a string
 	if (typeof stringToCheck !== 'string') {
 		return('Not a string');
 	} else if (stringToCheck.length < 1) {
@@ -152,6 +169,8 @@ function prepareString(stringToCheck, retainNumbers) {
     stringLowered = stringStripped.toLowerCase();
     console.log('stringLowered: ' + stringLowered);
     
+    // Converting to an array and back automatically inserts commas between characters.
+    // We just need to add one to the start and end of the string.
     arrayOfChars = stringLowered.split('');
     stringWithCommas = ',' + arrayOfChars.toString() + ',';
     
