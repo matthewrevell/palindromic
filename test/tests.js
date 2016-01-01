@@ -1,13 +1,6 @@
 // Test all function's ability to take a string and return an array of the
 // three longest palindromes in that string
 
-QUnit.test('String outtuoxyabbatbebvtoooooot should return array with toooooot, outtuo, ooooo in that order', function(assert) {
-   var stringToCheck = 'outtuoxyabbatbebvtoooooot';
-   var expected = ['toooooot', 'outtuo', 'ooooo'];
-   var actual = findAndReturnPalindromes(stringToCheck, 3, false);   
-   
-   assert.deepEqual(actual, expected);   
-});
 
 QUnit.test('String 1a2b3b4a5 with retainNumbers false should return array with abba', function(assert) {
    var stringToCheck = '1a2b3b4a5';
@@ -16,6 +9,15 @@ QUnit.test('String 1a2b3b4a5 with retainNumbers false should return array with a
    
    assert.deepEqual(actual, expected);   
 });
+
+QUnit.test('String sqrrqabccbatudefggfedvwhijkllkjihxymnnmzpop should return array with hijkllkjih, defggfed, abccba in that order', function(assert) {
+   var stringToCheck = 'sqrrqabccbatudefggfedvwhijkllkjihxymnnmzpop';
+   var expected = ['hijkllkjih', 'defggfed', 'abccba'];
+   var actual = findAndReturnPalindromes(stringToCheck, 3, false);   
+   
+   assert.deepEqual(actual, expected);   
+});
+
 
 QUnit.test('String 123321aabbbaa4554 with retainNumbers true should return array of palindromes including numbers', function(assert) {
    var stringToCheck = '123321aabbbaa4554';
@@ -49,6 +51,35 @@ QUnit.test('Requesting five palindromes should return five palindromes', functio
    
    assert.equal(actual, expected);
 });
+
+QUnit.test('Check findAndReturnPalindromes rejects a non-string as stringToCheck', function(assert) {
+   var expected = 'stringToCheck must be a string, not a number';
+   var actual = findAndReturnPalindromes(1234, 5, false);
+   
+   assert.equal(actual, expected);
+});
+
+QUnit.test('Check findAndReturnPalindromes rejects a zero length string as stringToCheck', function(assert) {
+   var expected = 'stringToCheck must be longer than 0';
+   var actual = findAndReturnPalindromes('', 3, false);
+   
+   assert.equal(actual, expected);
+});
+
+QUnit.test('Check findAndReturnPalindromes rejects a number of palindromes of 0', function(assert) {
+   var expected = 'numberOfPalindromes must be at least 1';
+   var actual = findAndReturnPalindromes('abba nooon lol', 0, false);
+   
+   assert.equal(actual, expected);
+});
+
+QUnit.test('Check findAndReturnPalindromes rejects a number as retainNumbers', function(assert) {
+   var expected = 'retainNumbers must be a boolean, not a number';
+   var actual = findAndReturnPalindromes('abba nooon lol', 1, 123);
+   
+   assert.equal(actual, expected);
+});
+
 
 // Test prepareString
 

@@ -12,3 +12,7 @@ found in that string. If there are no palindromes in the string, it returns an e
     palindromes = findAndReturnPalindromes(stringToCheck, numberOfPalindromesToReturn, retainNumbersInPalindromeString);
            
 ```
+
+## Dependencies
+
+Requires lodash for type checking.
