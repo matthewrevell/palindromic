@@ -7,24 +7,17 @@
         <title>Palindromic</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="findPalindromes.js"></script>
+        <script src="palindromic.js"></script>
     </head>
     <body>
 		<h1>Palindromic</h1>
         <pre>
-            <p><span id="string">string</span><br />
-            <span id="positionArray">positionArray</span></p>
             <p id="palindromes">Palindromes!</p>
         </pre>
         <script>
-           var string = 'abcdefghijklmnop';
-           var prepString = prepareString(string, false);
-           var posArray = findPalindromesInString(string, false);
-           document.getElementById("string").innerHTML = prepString;
-           document.getElementById("positionArray").innerHTML = posArray;
-           document.getElementById("palindromes").innerHTML = returnTopThreePalindromes(prepString, posArray);
-           
-           
+           var string = 'beeeeeeeb abbba xyz noon A man, a plan, a canal – Panama!';
+           var palindromes = findAndReturnPalindromes(string, 3, true);
+           document.getElementById("palindromes").innerHTML = palindromes;
         </script>
     </body>
 </html>

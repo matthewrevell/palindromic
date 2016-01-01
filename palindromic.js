@@ -1,24 +1,34 @@
-function findPalindromesInString(stringToCheck, retainNumbers) {
+function findAndReturnPalindromes(stringToCheck, numberOfPalindromes, retainNumbers){
+    // The boolean flag chooses whether to retain any numbers in the string or
+    // to strip them out.
     
-    // Accepts: a string to be checked for palindromes and a boolean flag.
+    var numberOfPalindromes = 3;
+    var separatedString = prepareString(stringToCheck, retainNumbers);
+    var positionsArray = findPalindromesCentres(separatedString);
+    var topPalindromes = retrievePalindromeStrings(separatedString, positionsArray, numberOfPalindromes);
+    
+    return topPalindromes;
+}
+
+function findPalindromesCentres(separatedString) {    
+    // Accepts: a string to be checked for palindromes.
     // Returns: an array of numbers. The index of each array corresponds to
     // an index in the string and the value at that index in the array is the
     // extent of any array centred at that position.
-    // The boolean flag chooses whether to retain any numbers in the string or
-    // to strip them out.
     // The function prepares the string: it removes punctuation, spaces and
     // numbers, if chosen, then transposes it to lower case and places a comma
-    // at each odd index, starting at 0 and finishing at the final index.
-    // It then returns the array giving the size of the offset creating the
-    // palindrome from each of the string's corresponding indexes.
-
-    var separatedString = prepareString(stringToCheck, retainNumbers);
+    // at each even index, starting at 0 and finishing at the final index.
+    // It then returns an array that contains the size of an offset at each
+    // corresponding positions in the string. That offset is the number of
+    // characters to the left and right of the position that make up its longest
+    // palindrome.
+    
     var stringLength = separatedString.length;
     var positionArray = Array(stringLength).fill(0);
     var offset;
     var i;
     
-    console.log('string: ' + stringToCheck);
+    //console.log('string: ' + stringToCheck);
     console.log('stringLength: ' + stringLength);    
     console.log('separatedString: ' + separatedString);
     
@@ -55,12 +65,15 @@ function findPalindromesInString(stringToCheck, retainNumbers) {
     return positionArray;       
 }
 
-function returnTopThreePalindromes(stringToCheck, positionsArray) {
-    // Accepts: a string containing various palindromes and an array.
-    // Each index in the array corresponds to an index in the string.
-    // The values in the array show the number of characters left and right
-    // of any palindrome centred at that index.
-    // Returns: an array of the three longest palindromes, as strings.
+function retrievePalindromeStrings(stringToCheck, positionsArray, numberOfPalindromes) {
+    // Accepts: a string, an array and an integer.
+    // The string contains from zero to several palindromes.
+    // Each positions of the array corresponds to that position in the string.
+    // The values in the array provide the number of characters to the left and
+    // right of that position that make up the longest palindrome centred at 
+    // that position.
+    // The integer specifies how many palindromes to return.
+    // Returns: an array of the X longest palindromes, as strings.
         
     var topPalindromes = [];
     var thereIsAPalindrome = false;
@@ -74,11 +87,17 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
     var end = 0;
     var offset = 0;
     
-    // Find the longest three palindromes by looping through the array of
-    // palindrome offsets. If the palindrome is longer than the top three, it
+    // Can return a minimum of one palindrome
+    console.log(numberOfPalindromes);
+    if (numberOfPalindromes < 1) {
+        return 'numberOfPalindromes must be greater than zero';
+    }
+    
+    // Find the longest X palindromes by looping through the array of
+    // palindrome offsets. If the palindrome is longer than the top X, it
     // will push that palindrome's centre index into the topPalindromePositions
     // array, thereby pushing along any existing values that should remain in
-    // the top three.
+    // the top X.
     
     for (i = 0; i < stringLength; i++) {
         console.log(i);
@@ -88,24 +107,23 @@ function returnTopThreePalindromes(stringToCheck, positionsArray) {
         tempPalindromeDetails = {};
     }
     
-    palindromePositionsWithOffsets.sort(compareOffsets);
-    
+    // Sort the array of objects by offset size in descending order
+    palindromePositionsWithOffsets.sort(compareOffsets);    
     console.log(JSON.stringify(palindromePositionsWithOffsets));
     
-    // Trim the array of palindrome positions so that we have only three.
-    
-    if (palindromePositionsWithOffsets.length > 3) {
-        palindromePositionsWithOffsets.length = 3;
+    // Trim the array of palindrome positions so that we have only three.   
+    if (palindromePositionsWithOffsets.length > numberOfPalindromes) {
+        palindromePositionsWithOffsets.length = numberOfPalindromes;
     }
 
     console.log(JSON.stringify(palindromePositionsWithOffsets));
     
-    // Populate an array with the strings of our top three palindromes by
+    // Populate an array with the strings of our top X palindromes by
     // finding the centre of the palindrome and the offset number of characters
     // that shows the extent left and right. Once we have that, we slice the
     // original string to extract our palindrome.
         
-    for (i = 0; i <= 2; i++) {
+    for (i = 0; i < numberOfPalindromes; i++) {
         centre = palindromePositionsWithOffsets[i].position;
         console.log('centre:' + centre);
         offset = palindromePositionsWithOffsets[i].offset;
