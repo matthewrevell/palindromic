@@ -2,7 +2,6 @@ function findAndReturnPalindromes(stringToCheck, numberOfPalindromes, retainNumb
     // The boolean flag chooses whether to retain any numbers in the string or
     // to strip them out.
     
-    var numberOfPalindromes = 3;
     var separatedString = prepareString(stringToCheck, retainNumbers);
     var positionsArray = findPalindromesCentres(separatedString);
     var topPalindromes = retrievePalindromeStrings(separatedString, positionsArray, numberOfPalindromes);
