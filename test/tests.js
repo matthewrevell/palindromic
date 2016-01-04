@@ -1,4 +1,4 @@
-// Test all function's ability to take a string and return an array of the
+// Test function's ability to take a string and return an array of the
 // three longest palindromes in that string
 
 

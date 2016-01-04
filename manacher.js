@@ -47,18 +47,14 @@ function findPalindromesCentres(separatedString) {
     // Returns: an array of numbers. The index of each array corresponds to
     // an index in the string and the value at that index in the array is the
     // extent of any array centred at that position.
-    // The function prepares the string: it removes punctuation, spaces and
-    // numbers, if chosen, then transposes it to lower case and places a comma
-    // at each even index, starting at 0 and finishing at the final index.
-    // It then returns an array that contains the size of an offset at each
-    // corresponding positions in the string. That offset is the number of
-    // characters to the left and right of the position that make up its longest
-    // palindrome.
     
     var stringLength = separatedString.length;
     var positionArray = Array(stringLength).fill(0);
     var offset;
     var i;
+    var rightEdge = 1;
+    var currentWorkingCentre = 1;
+    var mirror;
     
     //console.log('string: ' + stringToCheck);
     console.log('stringLength: ' + stringLength);    
@@ -73,26 +69,40 @@ function findPalindromesCentres(separatedString) {
     // extremities of the string or the characters no long match.
     
     for (i = 1; i < stringLength - 1; i++) {
-        console.log('##################');
-        console.log('Working on new character');
-        console.log('##################');        
         console.log('i: ' + i);
-        console.log('char: ' + separatedString.charAt(i));
-        for (offset = 1; i + offset < stringLength; offset++) {
-            console.log('offset: ' + offset);    
-            console.log('left: ' + separatedString.charAt(i-offset));
-            console.log('right: ' + separatedString.charAt(i+offset));
-            if (separatedString.charAt(i-offset) === separatedString.charAt(i+offset)) {
-                positionArray[i] = offset;
-                console.log('positionArray[i]: ' + positionArray);
-                console.log('palindrome thus far: ' + separatedString.substring(i-offset, i+(offset+1)));
-                console.log('A palindrome!');
+        console.log('rightEdge: ' + rightEdge);
+        mirror = currentWorkingCentre * 2 - i;
+        console.log('mirror: ' + mirror);
+         
+        if (i < rightEdge) {
+            console.log ('i < rightEdge');
+            if (rightEdge - i < positionArray[mirror]) {
+                positionArray[i] = rightEdge - 1;
             } else {
-                console.log('Not a palindrome');
+                positionArray[i] = positionArray[mirror];
+            }
+        }
+            
+        for (offset = positionArray[i]; i + offset < stringLength; offset++) {  
+            console.log('offset: ' + offset);  
+            if (separatedString.charAt(i-offset) === separatedString.charAt(i+offset)) {
+                positionArray[i] += 1;
+            } else {
                 offset = stringLength+1;
             }
-                  
-        }        
+        }    
+        
+        
+        if (i + positionArray[i] > rightEdge) {
+            currentWorkingCentre = i;
+            rightEdge = i + positionArray[i];
+        }
+        
+        
+        
+        
+        
+                
     }   
     return positionArray;       
 }
@@ -176,6 +186,8 @@ function retrievePalindromeStrings(stringToCheck, positionsArray, numberOfPalind
     } 
 
 }
+
+// Helper functions
 
 function compareOffsets(a,b) {
     // Allows us to sort the array of palindrome objects in descending order of
