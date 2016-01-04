@@ -80,6 +80,22 @@ QUnit.test('Check findAndReturnPalindromes rejects a number as retainNumbers', f
    assert.equal(actual, expected);
 });
 
+// Test retrievePalindromeStrings
+
+QUnit.test('Check retrievePalindromeStrings rejects a number of palindromes greater than string length', function(assert) {
+   var expected = 'numberOfPalindromes must be less than string length';
+   var actual = retrievePalindromeStrings('abba nooon lol', [1,2,3], 9000);
+   
+   assert.equal(actual, expected);
+});
+
+QUnit.test('Check retrievePalindromeStrings rejects a number of palindromes of zero', function(assert) {
+   var expected = 'numberOfPalindromes must be greater than zero';
+   var actual = retrievePalindromeStrings('abba nooon lol', [1,2,3], 0);
+   
+   assert.equal(actual, expected);
+});
+
 
 // Test prepareString
 

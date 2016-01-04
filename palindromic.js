@@ -107,7 +107,7 @@ function retrievePalindromeStrings(stringToCheck, positionsArray, numberOfPalind
     // The integer specifies how many palindromes to return.
     // Returns: an array of the X longest palindromes, as strings.
         
-    var topPalindromes = [];
+    var topPalindromes = Array(numberOfPalindromes).fill('');
     var thereIsAPalindrome = false;
     var stringLength = stringToCheck.length;
     var palindromePositionsWithOffsets = [];
@@ -116,7 +116,7 @@ function retrievePalindromeStrings(stringToCheck, positionsArray, numberOfPalind
     var i;
     var centre = 0;
     var start = 0;
-    var end = 0;
+    var end = 0;    
     var offset = 0;
     
     // Can return a minimum of one palindrome
@@ -124,6 +124,11 @@ function retrievePalindromeStrings(stringToCheck, positionsArray, numberOfPalind
     if (numberOfPalindromes < 1) {
         return 'numberOfPalindromes must be greater than zero';
     }
+    // Maximum number of palindromes allowable is the string length
+    if (numberOfPalindromes > stringLength) {
+        return 'numberOfPalindromes must be less than string length';
+    }
+    
     
     // Find the longest X palindromes by looping through the array of
     // palindrome offsets. If the palindrome is longer than the top X, it
